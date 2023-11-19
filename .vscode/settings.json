@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.ejs": "html",
+    "eq2grau.C": "cpp"
+  }
+}

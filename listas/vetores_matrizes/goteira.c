@@ -3,53 +3,77 @@
 int main()
 {
     int n, m; // n = altura, m = largura
-    int i, j;
-    char tipo;
-    int entrou = 0; // flag
+    int i, j, k;
+    int semHash = 0, semHash2 = 0; // flags
 
     scanf("%d %d", &n, &m);
     char matriz[n][m];
 
-    while (scanf(" %c", &tipo) != EOF)
+    for (i = 0; i < n; i++)
     {
-        for (i = 0; i < n; i++)
+        for (j = 0; j < m; j++)
         {
-            for (j = 0; j < m; j++)
-            {
-                scanf(" %c", &tipo);
-                matriz[i][j] = tipo;
+            scanf(" %c", &matriz[i][j]);
+        }
+    }
 
-                switch (tipo)
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            if (matriz[i][j] == '.')
+            {
+                if (i - 1 >= 0)
                 {
-                    if (matriz[i][j] = '.' || matriz[i][j] = 'o')
+                    if (matriz[i - 1][j] == 'o')
                     {
-                        matriz[i][j] = matriz[i][j];
+                        matriz[i][j] = 'o';
                     }
-                case '.':
-                    if (i - 1 >= 0)
+                }
+            }
+            if (matriz[i][j] == 'o')
+            {
+                if (i + 1 < n && matriz[i + 1][j] == '.')
+                {
+                    matriz[i + 1][j] = 'o';
+                }
+                else if (i + 1 < n && matriz[i + 1][j] == '#')
+                {
+                    for (k = 1; !semHash; k++) //Tem hashtag
                     {
-                        if (matriz[i - 1][j] = 'o')
+                        if (j + k >= m || matriz[i + 1][j + k] != '#')
                         {
-                            matriz[i - 1][j] = 'o';
+                            semHash = 1;
                         }
                     }
-                    break;
-                case 'o':
-                    if (matriz[i + 1][j] == '.')
+                    for (int l = 1; l < k; l++)
                     {
-                        matriz[i + 1][j] = 'o';
+                        if (j + l < m)
+                        {
+                            matriz[i][j + l] = 'o';
+                        }
                     }
-                    break;
-                case '#':
-                    if (matriz[i + 1][j] == 'o')
+                    semHash = 0;
+                    for (k = 1; !semHash2; k++)
                     {
-                        matriz[i + 1][j] = '.';
+                        if (j - k < 0 || matriz[i + 1][j - k] != '#')
+                        {
+                            semHash2 = 1;
+                        }
                     }
-                    break;
+                    for (int l = 1; l < k; l++)
+                    {
+                        if (j - l >= 0)
+                        {
+                            matriz[i][j - l] = 'o';
+                        }
+                    }
+                    semHash2 = 0;
                 }
             }
         }
     }
+
     for (i = 0; i < n; i++)
     {
         for (j = 0; j < m; j++)

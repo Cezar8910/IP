@@ -22,7 +22,7 @@ int main()
     {
         for (j = 0; j < n - i - 1; j++)
         {
-            if (notas[j] > notas[j + 1]) // Ordenacao bubble sort
+            if (notas[j] > notas[j + 1]) // Ordenacao bubble sort ordem crescente
             {
                 float temp = notas[j];
                 notas[j] = notas[j + 1];
